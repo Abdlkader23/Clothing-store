@@ -4,19 +4,33 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use  App\Models\product;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
+
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        $varieties = [
+            ['name' => 'T-Shirts'],
+            ['name' => 'Jeans'],
+            ['name' => 'Jackets'],
+            ['name' => 'Sweaters'],
+            ['name' => 'Shorts'],
+            ['name' => 'Dresses']
+        ];
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        DB::table('varieties')->insert($varieties);
+
+        for ($i = 0; $i < 25; $i++) {
+            product::create([
+                'name' => 'product'.$i,
+                'imagpath' =>'', // Replace with a path or URL to a real image if needed
+                'description' => 'this is product numder',
+                'price' => rand( 10, 100),
+                'category_id ' => rand(1, 6),
+            ]);
     }
+}
 }
